@@ -23,14 +23,14 @@ void Menu::Start()
     ResourceHolder::get().textures.add("Menu Icons/Settings");
     ResourceHolder::get().textures.add("Menu Icons/Exit");
 }
-void Menu::Input(std::queue<sf::Event> &events, float dt)
+void Menu::Input(float dt)
 {
     *log << "Menu Input";
 }
 void Menu::Render(std::shared_ptr<Window> window)
 {
     *log << "Menu Render";
-    window->BeginDraw(sf::Color(40,45,55));
+     window->BeginDraw(Colours::black);
     
     window->EndDraw();
 }
@@ -46,7 +46,7 @@ void Menu::UI()
     window_flags |= ImGuiWindowFlags_NoBackground;
     
     ImGui::Begin("Menu",NULL,window_flags);
-    ImGui::SetWindowSize(ImVec2(window->GetSize()));
+    ImGui::SetWindowSize(ImVec2(window->GetWindowSize()));
     ImGui::SetWindowPos(ImVec2(0,25));
     
     if (ImGui::BeginTabBar("##tabs", ImGuiTabBarFlags_None))
@@ -106,12 +106,13 @@ void Menu::StartScreen()
 }
 void Menu::ProgramSettingsMenu()
 {
-    static int GameX{(int)settings->GameSize.x},GARX{(int)settings->GameApsectRatio.x},GARY{(int)settings->GameApsectRatio.y},MARX{(int)settings->MenuApsectRatio.x},MARY{(int)settings->MenuApsectRatio.y},MenuX{(int)settings->MenuSize.x};
+    static int GameX{(int)settings->GameSize.x},GARX{(int)settings->GameApsectRatio.x},GARY{(int)settings->GameApsectRatio.y},MARX{(int)settings->MenuApsectRatio.x},MARY{(int)settings->MenuApsectRatio.y},MenuX{(int)settings->MenuSize.x}, PixelX{(int)settings->PixelSize.x}, PixelY{(int)settings->PixelSize.y};
     
     ImGui::Text("Menu Aspect Ratio: %i x %i",settings->MenuApsectRatio.x, settings->MenuApsectRatio.y);
     ImGui::Text("Game Aspect Ratio: %i x %i",settings->GameApsectRatio.x, settings->GameApsectRatio.y);
     ImGui::Text("Menu Resolution: %i x %i",settings->MenuSize.x, settings->MenuSize.y);
     ImGui::Text("Game Resolution: %i x %i",settings->GameSize.x, settings->GameSize.y);
+    ImGui::Text("Pixel Size: %i x %i",settings->PixelSize.x, settings->PixelSize.y);
     
     if(ImGui::SliderInt("Game Resolution",&GameX, 1, 8000))
     {
@@ -143,6 +144,14 @@ void Menu::ProgramSettingsMenu()
         settings->MenuApsectRatio.y = MARY;
         settings->MenuSize.y = (MenuX/MARX)*MARY;
     }
+    if(ImGui::SliderInt("Pixel Size X",&PixelX, 1,32))
+    {
+        settings->PixelSize.x = PixelX;
+    }
+    if(ImGui::SliderInt("Pixel Size Y",&PixelY, 1, 32))
+    {
+        settings->PixelSize.y = PixelY;
+    }
     ImGui::Checkbox("Vsync", &settings->Vsync);
     ImGui::Checkbox("Fullscreen", &settings->Fullscreen);
     settings->UpdateFile();
@@ -154,4 +163,8 @@ void Menu::GameSettingsMenu()
 void Menu::GameSettingsMenuTWO()
 {
     ImGui::Text("this is the Game Settings 2 Menu!\nIt should be used for settings related to ingame variables. Such as car details, tracks etc");
+}
+void Menu::PostRender()
+{
+    
 }

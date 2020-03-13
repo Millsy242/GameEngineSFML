@@ -25,7 +25,8 @@ public:
     virtual void LateUpdate() = 0;
     virtual void FixedUpdate(float dt) override = 0;
     virtual void Render(std::shared_ptr<Window> window) override= 0;
-    virtual void Input(std::queue<sf::Event> &events, float dt) override = 0;
+    virtual void PostRender() = 0;
+    virtual void Input(  float dt) override = 0;
     
     virtual void Exit() override;
     virtual void Stats();
@@ -36,7 +37,7 @@ protected:
     kairos::TimestepLite timestep;
     bool Pause = false;
     bool Active = true;
-    bool Debug{false},DebugMetrics{false},DebugUserGuide{false},DebugStyleSel{false},DebugStyleEditer{false};
+    bool Debug{false},DebugMetrics{false},DebugUserGuide{false},DebugStyleSel{false},DebugStyleEditer{false},DebugWindowData{false};
     std::shared_ptr<Window> window;
     std::shared_ptr<ige::FileLogger> log;
     std::shared_ptr<SettingsManager> settings;

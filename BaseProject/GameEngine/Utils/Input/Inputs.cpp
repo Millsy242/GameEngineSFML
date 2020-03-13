@@ -5,7 +5,7 @@
 //  Created by Daniel Harvey on 25/01/2020.
 //  Copyright © 2020 Daniel Harvey. All rights reserved.
 //
-
+/*
 #include "Inputs.hpp"
 bool eventManager::Testevent(std::string EventName, sf::Event &event)
 {
@@ -42,3 +42,4 @@ bool eventManager::Addevent(std::string EventName, Input i)
     }
     return false;
 }
+*/

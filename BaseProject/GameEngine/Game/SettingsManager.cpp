@@ -24,7 +24,7 @@ void SettingsManager::Setup()
     {
         parse.get("Version",ver);
 
-        unsigned int Mx{MenuSize.x},Gx{GameSize.x}, MARY{MenuApsectRatio.y},MARX{MenuApsectRatio.x},GARY{GameApsectRatio.y},GARX{GameApsectRatio.x};
+        unsigned int Mx{MenuSize.x},Gx{GameSize.x}, MARY{MenuApsectRatio.y},MARX{MenuApsectRatio.x},GARY{GameApsectRatio.y},GARX{GameApsectRatio.x},PX{PixelSize.x},PY{PixelSize.y};
         //load from file to data
         parse.get("MenuScreenWidth", Mx);
         parse.get("GameScreenWidth", Gx);
@@ -32,6 +32,8 @@ void SettingsManager::Setup()
         parse.get("MenuAspectRatioY",MARY);
         parse.get("GameAspectRatioX",GARX);
         parse.get("GameAspectRatioY",GARY);
+        parse.get("PixelSizeX",PX);
+        parse.get("PixelSizeY",PY);
         parse.get("Vsync", Vsync);
         parse.get("FullScreen",Fullscreen);
         
@@ -60,6 +62,8 @@ void SettingsManager::UpdateFile()
     parse.set("GameAspectRatioY",GameApsectRatio.y);
     parse.set("MenuScreenWidth", MenuSize.x);
     parse.set("GameScreenWidth", GameSize.x);
+    parse.set("PixelSizeX",PixelSize.x);
+    parse.set("PixelSizeY",PixelSize.x);
     parse.set("Vsync", Vsync);
     parse.set("FullScreen",Fullscreen);
     

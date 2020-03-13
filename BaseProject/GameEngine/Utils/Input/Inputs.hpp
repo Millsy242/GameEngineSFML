@@ -9,8 +9,19 @@
 #ifndef Inputs_hpp
 #define Inputs_hpp
 
+/*
+    Idea for this file was to have a class/struct that could be used to check for inputs based on the game rules.
+    For example, A game may use the WASD keys to move on keyboard, but use the DPad on controller,
+    idealy this file would allow for only 1 input check
+ 
+    Out of Date do not use without update
+
+*/
+/*
+
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
+
 
 enum  InputType
 {
@@ -39,5 +50,5 @@ public:
 private:
     std::unordered_map<std::string, Input> inputconfigs;
 };
-
+*/
 #endif /* Inputs_hpp */

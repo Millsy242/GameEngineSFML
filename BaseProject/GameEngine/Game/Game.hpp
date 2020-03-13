@@ -10,8 +10,8 @@
 #define Game_hpp
 #include "WindowHolder.hpp"
 #include "SelbaWard.hpp"
-
 #include "imgui_memory_editor.h"
+
 class Game : public WindowHolder
 {
 public:
@@ -19,14 +19,16 @@ public:
     ~Game();
     
     virtual void Start() override;
-    virtual void Input(std::queue<sf::Event> &events, float dt) override;
+    virtual void Input(  float dt) override;
     virtual void Render(std::shared_ptr<Window> window) override;
+    virtual void PostRender() override;
     virtual void UI() override;
     virtual void EarlyUpdate() override;
     virtual void LateUpdate() override;
     virtual void FixedUpdate(float dt) override;
     virtual void DebugRender(std::shared_ptr<Window> window);
     virtual void addObject(Base *b);
+    
     void Stats() override; 
     Base* getObject(unsigned int pos);
 protected:

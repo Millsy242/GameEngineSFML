@@ -14,16 +14,16 @@ MyMenu::MyMenu(std::shared_ptr<ige::FileLogger> LOG,std::shared_ptr<SettingsMana
 }
 void MyMenu::GameSettingsMenu()
 {
-    ImGui::Text("this is the Game Settings Menu!\nIt should be used for settings related to ingame variables. Such as car details, tracks etc");
+    ImGui::Text("This is the Game Settings Menu!\nIt should be used for settings related to ingame variables.");
 }
-void MyMenu::Input(std::queue<sf::Event> &events, float dt)
+void MyMenu::Input(  float dt)
 {
     *log << "Menu Input";
 }
 void MyMenu::Render(std::shared_ptr<Window> window)
 {
     *log << "Menu Render";
-    window->BeginDraw(sf::Color(40,45,55));
+    window->BeginDraw(Colours::orangered);
     
     window->EndDraw();
 }

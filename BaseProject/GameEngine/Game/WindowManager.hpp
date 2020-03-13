@@ -12,11 +12,12 @@
 #include <SFML/Graphics.hpp>
 #include "Window.hpp"
 
-#include "MyGame.hpp"
-#include "MyMenu.hpp"
+
 #include <thread>
 #include "FileLogger.hpp"
 #include "SettingsManager.hpp"
+
+class WindowHolder;
 
 class WindowManager : public Base
 {
@@ -24,8 +25,10 @@ public:
     enum class windowType
     {
         eNull,
+        eIntro,
         eGame,
-        eMenu
+        eMenu,
+        eEnd
     };
     
     WindowManager() {};
@@ -36,7 +39,7 @@ public:
     void FixedUpdate(float dt) override;
     void Exit() override;
     void Render(std::shared_ptr<Window> window) override;
-    void Input(std::queue<sf::Event> &events, float dt) override;
+    void Input(  float dt) override;
     
     void ChangeWindow(windowType wt);
     void UpdateWindow();
@@ -48,8 +51,7 @@ private:
     std::shared_ptr<ige::FileLogger> log = nullptr;
     std::shared_ptr<SettingsManager> settings;
     windowType CurrentWindowType = windowType::eNull;
-//    ige::FileLogger log;
-//    SettingsManager Settings;
+
 };
 
 #endif /* WindowManager_hpp */

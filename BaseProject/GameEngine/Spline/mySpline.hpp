@@ -159,7 +159,7 @@ struct mySpline
             }
         }
     }
-    void DrawSelf(Window *window, sf::Color col = sf::Color::White, sf::Vector2f lineSize = {8,8})
+    void DrawSelf(std::shared_ptr<Window> window, sf::Color col = sf::Color::White, sf::Vector2f lineSize = {8,8})
     {
         sf::RectangleShape tri;
         tri.setFillColor(col);

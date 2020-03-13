@@ -76,14 +76,14 @@ void Game::Start()
 {
     *log << "Game Start";
 }
-void Game::Input(std::queue<sf::Event> &events, float dt)
+void Game::Input(  float dt)
 {
    *log << "Game Input";
 }
 void Game::Render(std::shared_ptr<Window> window)
 {
     *log << "Game Render";
-    window->BeginDraw(sf::Color(20,55,34));
+    window->BeginDraw(Colours::black);
     
     window->EndDraw();
 }
@@ -95,7 +95,6 @@ void Game::UI()
 void Game::EarlyUpdate()
 {
     *log << "Game Early Update";
-
 }
 void Game::LateUpdate()
 {
@@ -127,21 +126,21 @@ void Game::GameUI()
     {
         *log << "Game Paused";
         //centre window on screen
-        ImGui::SetWindowPos(ImVec2((window->GetCentre().x - ImGui::GetWindowSize().x/2),(window->GetCentre().y - ImGui::GetWindowSize().y/2)));
+        ImGui::SetWindowPos(ImVec2((window->GetWindowCentre().x - ImGui::GetWindowSize().x/2),(window->GetWindowCentre().y - ImGui::GetWindowSize().y/2)));
         
         ImGui::Text("PAUSED");
         if(ImGui::Button("Return"))
         {
             Pause = false;
         }
-        if(ImGui::Button("Menu"))
+        if(ImGui::Button("Exit"))
         {
              Active = false;
         }
     }
     else
     {
-        ImGui::SetWindowPos(ImVec2((window->GetCentre().x - ImGui::GetWindowSize().x/2),(window->GetSize().y - ImGui::GetWindowSize().y-50)));
+        ImGui::SetWindowPos(ImVec2((window->GetWindowCentre().x - ImGui::GetWindowSize().x/2),(window->GetWindowSize().y - ImGui::GetWindowSize().y-50)));
         ImGui::SetCursorPos(ImVec2(5,5));
         if(ImGui::ImageButton(ResourceHolder::get().textures.get("Game Icons/Pause"), sf::Vector2f(20,20)))
         {
@@ -174,6 +173,11 @@ void Game::GameUI()
             ImGui::Checkbox("Style Selector", &DebugStyleSel);
             ImGui::Checkbox("Style Editor", &DebugStyleEditer);
             ImGui::Checkbox("Memory Editor", &DebugMemoryEditer);
+            ImGui::Checkbox("Window Data", &DebugWindowData);
         ImGui::End();
     }
+}
+void Game::PostRender()
+{
+    
 }

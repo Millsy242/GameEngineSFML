@@ -48,6 +48,8 @@ void WindowHolder::Stats()
 			ImGui::ShowStyleSelector("Style");
 		if(DebugStyleEditer)
 			ImGui::ShowStyleEditor();
+		if(DebugWindowData)
+			window->WindowDebug();
 		
 
 	}
@@ -62,7 +64,7 @@ void WindowHolder::Update()
 		window->Update();
 		Stats();
 		UI();
-		Input(window->events, window->getDT());
+		Input(window->getDT());
 		timestep.update(window->getDT());
 		if(!Pause)
 		{
@@ -75,6 +77,7 @@ void WindowHolder::Update()
 			FixedUpdate(window->getDT());
 		}
 		Render(window);
+		PostRender();
 	}
 	return;
 }

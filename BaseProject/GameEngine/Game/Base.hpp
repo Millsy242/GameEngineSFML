@@ -14,6 +14,7 @@
 #include <queue>
 #include "Rect.hpp"
 #include <iostream>
+#include "TypeDefs.h"
 
 class Base
 {
@@ -23,7 +24,7 @@ public:
     virtual void FixedUpdate(float dt);
     virtual void Exit();
     virtual void Render(std::shared_ptr<Window> window);
-    virtual void Input(std::queue<sf::Event> &events, float dt);
+    virtual void Input(float dt);
     virtual void UI();
     virtual void DebugUI(int i);
     void DebugSelected(bool sel);

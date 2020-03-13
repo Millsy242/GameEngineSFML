@@ -54,7 +54,7 @@ void Base::Exit()
 {
     
 }
-void Base::Input(std::queue<sf::Event> &events, float dt)
+void Base::Input(  float dt)
 {
     
 }

@@ -19,8 +19,9 @@ public:
     ~Menu(){};
         
     virtual void Start() override;
-    virtual void Input(std::queue<sf::Event> &events, float dt) override;
+    virtual void Input(  float dt) override;
     virtual void Render(std::shared_ptr<Window> window) override;
+    virtual void PostRender() override;
     virtual void UI() override;
     virtual void EarlyUpdate() override;
     virtual void LateUpdate() override;

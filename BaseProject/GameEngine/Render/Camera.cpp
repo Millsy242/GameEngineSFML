@@ -28,7 +28,7 @@ void Camera::Render(std::shared_ptr<Window> window)
 {
     
 }
-void Camera::Input(std::queue<sf::Event> &events, float dt)
+void Camera::Input(  float dt)
 {
     
 }

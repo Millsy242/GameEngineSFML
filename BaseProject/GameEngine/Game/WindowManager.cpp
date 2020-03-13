@@ -7,7 +7,10 @@
 //
 
 #include "WindowManager.hpp"
-#include <iostream>
+#include "MyGame.hpp"
+#include "MyMenu.hpp"
+#include "MyIntro.hpp"
+#include "MyEnd.hpp"
 
 void WindowManager::Start()
 {
@@ -17,9 +20,9 @@ void WindowManager::Start()
     
     window = std::shared_ptr<Window>(new Window(log));
     window->Start(" ",settings->MenuSize);
-    ChangeWindow(windowType::eMenu);
+    ChangeWindow(windowType::eIntro);
 }
-void WindowManager::Update()
+void WindowManager::Update() 
 {
     while(currentWindow->Continue)
     {
@@ -27,9 +30,13 @@ void WindowManager::Update()
         currentWindow->Update();
         if(currentWindow->Continue)
         {
-            if(CurrentWindowType == windowType::eMenu)
+            if(CurrentWindowType == windowType::eIntro)
+                ChangeWindow(windowType::eMenu);
+            else if(CurrentWindowType == windowType::eMenu)
                 ChangeWindow(windowType::eGame);
             else if(CurrentWindowType == windowType::eGame)
+                ChangeWindow(windowType::eEnd);
+            else if(CurrentWindowType == windowType::eEnd)
                 ChangeWindow(windowType::eMenu);
         }
     }
@@ -47,7 +54,7 @@ void WindowManager::Render(std::shared_ptr<Window> window)
 {
 
 }
-void WindowManager::Input(std::queue<sf::Event> &events, float dt)
+void WindowManager::Input(float dt)
 {
 
 }
@@ -59,13 +66,21 @@ void WindowManager::ChangeWindow(windowType wt)
         UpdateFromSettings();
         switch (wt)
         {
-            case windowType::eGame:
-                currentWindow = std::make_shared<MyGame>(log,settings);
-                *log << "Changing to Game";
+            case windowType::eIntro:
+                currentWindow = std::make_shared<MyIntro>(log,settings);
+                *log << "Changing to Intro";
                 break;
             case windowType::eMenu:
                 currentWindow = std::make_shared<MyMenu>(log,settings);
                 *log << "Changing to Menu";
+                break;
+            case windowType::eGame:
+                currentWindow = std::make_shared<MyGame>(log,settings);
+                *log << "Changing to Game";
+                break;
+            case windowType::eEnd:
+                currentWindow = std::make_shared<MyEnd>(log,settings);
+                *log << "Changing to End";
                 break;
             default:
                 break;
@@ -76,13 +91,27 @@ void WindowManager::ChangeWindow(windowType wt)
 }
 void WindowManager::UpdateFromSettings()
 {
-    if(CurrentWindowType == windowType::eGame)
-    {
-        window->Start("Game", settings->GameSize, settings->Fullscreen);
-    }
-    else if(CurrentWindowType == windowType::eMenu)
-    {
-        window->Start("Menu", settings->MenuSize);
-    }
+    switch (CurrentWindowType)
+           {
+               case windowType::eIntro:
+                    window->Start("Intro", settings->MenuSize);
+                   *log << "Changing to Intro";
+                   break;
+               case windowType::eMenu:
+                    window->Start("Menu", settings->MenuSize);
+                   *log << "Changing to Menu";
+                   break;
+               case windowType::eGame:
+                   window->Start("Game", settings->GameSize, settings->PixelSize, settings->Fullscreen);
+                   *log << "Changing to Game";
+                   break;
+               case windowType::eEnd:
+                    window->Start("End", settings->MenuSize);
+                   *log << "Changing to End";
+                   break;
+               default:
+                   break;
+           }
+
     window->SetVsync(settings->Vsync);
 }
